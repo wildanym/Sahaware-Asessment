@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,4 +6,8 @@
 
 .nuxt-link-exact-active {
   @apply text-primaryRed;
+}
+
+.header {
+  @apply w-full h-[36.5rem] md:h-screen bg-[url('/hero.jpg')] bg-cover bg-center;
 }

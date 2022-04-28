@@ -163,7 +163,11 @@
       <nuxt-link to="/article" exact>Article</nuxt-link>
       <nuxt-link to="/create" exact>Create</nuxt-link>
     </div>
-    <span class="inline-block md:hidden">
+    <span
+      v-if="show == false"
+      class="inline-block md:hidden"
+      @click="show = !show"
+    >
       <svg
         width="18"
         height="16"
@@ -177,16 +181,59 @@
         />
       </svg>
     </span>
+    <span v-if="show" class="inline-block md:hidden" @click="show = !show">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 10.586L16.95 5.636L18.364 7.05L13.414 12L18.364 16.95L16.95 18.364L12 13.414L7.04999 18.364L5.63599 16.95L10.586 12L5.63599 7.05L7.04999 5.636L12 10.586Z"
+          fill="#263137"
+        />
+      </svg>
+    </span>
     <div
-      class="order-2 hidden text-sm cursor-pointer grow-0 md:inline-block text-primaryBlue md:px-6 md:py-3 md:w-20"
+      class="order-2 hidden text-sm cursor-pointer grow-0 md:inline-block text-Blue2 md:px-6 md:py-3 md:w-20"
     >
       Login
     </div>
+    <Transition name="fade" mode="out-in">
+      <div
+        v-if="show"
+        class="absolute top-0 bottom-0 left-0 z-20 flex flex-col items-center w-full h-screen gap-8 py-4 mt-12 bg-white md:hidden"
+      >
+        <nuxt-link to="/" exact class="cursor-pointer">Home</nuxt-link>
+        <nuxt-link to="/article" exact class="cursor-pointer"
+          >Article</nuxt-link
+        >
+        <nuxt-link to="/create" exact class="cursor-pointer">Create</nuxt-link>
+        <span class="cursor-pointer text-Blue1">Login</span>
+      </div>
+    </Transition>
   </nav>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show: false,
+    };
+  },
+};
 </script>
 
-<style></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
