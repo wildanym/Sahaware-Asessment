@@ -1,7 +1,7 @@
 <template>
   <div class="md:p-[4.5rem]">
     <div
-      class="w-full h-[32rem] md:h-screen bg-[url('/hero.jpg')] bg-cover bg-center"
+      class="w-full h-[36.5rem] md:h-screen bg-[url('/hero.jpg')] bg-cover bg-center"
     ></div>
   </div>
 </template>
