@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="relative flex flex-col items-center pb-24 max-w-[1440px] min-h-[1573px] font-roboto md:pb-0"
-  >
+  <div class="relative flex flex-col items-center pb-24 font-roboto md:pb-0">
     <TheNavbar />
     <Nuxt />
     <!-- <LoginModal /> -->

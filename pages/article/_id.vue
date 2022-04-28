@@ -1,10 +1,10 @@
 <template>
-  <div class="max-w-[628px] flex flex-col items-start gap-6 px-4 mt-8 md:mb-32">
-    <h1 class="text-4xl font-medium">{{ content.title }}</h1>
-    <span
-      ><p>{{ content.short_description }}</p></span
-    >
-    <img :src="content.image" alt="thumbnail" class="w-full" />
+  <div
+    class="flex flex-col sm:max-w-[628px] items-start gap-6 px-4 mt-8 md:mb-32"
+  >
+    <h1 class="text-2xl font-medium sm:text-4xl">{{ content.title }}</h1>
+    <p class="text-lg font-light">{{ content.short_description }}</p>
+    <img :src="content.image" alt="thumbnail" class="sm:w-full" />
     <p>{{ content.description }}</p>
   </div>
 </template>
@@ -25,7 +25,6 @@ export default {
       };
       axios(data).then((response) => {
         this.content = response.data.content;
-        console.log(this.content);
       });
     },
   },
