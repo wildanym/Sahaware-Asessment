@@ -197,6 +197,7 @@
     </span>
     <div
       class="order-2 hidden text-sm cursor-pointer grow-0 md:inline-block text-Blue2 md:px-6 md:py-3 md:w-20"
+      @click="changeShow(true), changeComponent('Login')"
     >
       Login
     </div>
@@ -210,18 +211,38 @@
           >Article</nuxt-link
         >
         <nuxt-link to="/create" exact class="cursor-pointer">Create</nuxt-link>
-        <span class="cursor-pointer text-Blue1">Login</span>
+        <span
+          class="cursor-pointer text-Blue1"
+          @click="changeShow(true), changeComponent('Login')"
+          >Login</span
+        >
       </div>
     </Transition>
   </nav>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       show: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      showStatus: "dialog/show",
+      component: "dialog/component",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      changeShow: "dialog/changeShow",
+      changeComponent: "dialog/changeComponent",
+    }),
+    coba() {
+      console.log(this.showStatus);
+    },
   },
 };
 </script>

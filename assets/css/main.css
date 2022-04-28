@@ -7,3 +7,7 @@
 .nuxt-link-exact-active {
   @apply text-primaryRed;
 }
+
+.btn {
+  @apply py-3 px-4 text-white rounded-md;
+}
