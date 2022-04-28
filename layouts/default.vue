@@ -11,4 +11,16 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 200ms;
+}
+
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+</style>
