@@ -1,6 +1,8 @@
 <template>
   <div class="md:p-20">
-    <header class="header"></header>
+    <header
+      class="h-[36.5rem] md:h-screen bg-[url('/hero.jpg')] bg-cover bg-center"
+    ></header>
     <!-- Articles wrapper -->
     <section class="flex flex-col items-center w-full gap-8 px-4 mt-8 md:mt-20">
       <h1 class="text-5xl font-bold md:mb-12">Article</h1>

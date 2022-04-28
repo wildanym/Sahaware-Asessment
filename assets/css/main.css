@@ -7,7 +7,3 @@
 .nuxt-link-exact-active {
   @apply text-primaryRed;
 }
-
-.header {
-  @apply w-full h-[36.5rem] md:h-screen bg-[url('/hero.jpg')] bg-cover bg-center;
-}

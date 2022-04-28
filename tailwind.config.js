@@ -16,7 +16,7 @@ module.exports = {
         primaryGrey: "#848688",
         Blue1: "#2F80ED",
         Blue2: "#2D9CDB",
-        footerRed: "#ED3237",
+        secondaryRed: "#ED3237",
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],

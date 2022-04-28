@@ -8,7 +8,7 @@
 
 <script>
 import axios from "axios";
-import CardComponent from "../components/CardComponent.vue";
+import CardComponent from "../../components/CardComponent.vue";
 export default {
   name: "IndexPage",
   data() {

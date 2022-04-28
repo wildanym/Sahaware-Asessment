@@ -1,9 +1,16 @@
 <template>
   <div
-    class="relative font-roboto max-w-[1440px] md:h-[1573px] h-auto md:pb-0 pb-24"
+    class="relative flex flex-col items-center pb-24 max-w-[1440px] min-h-[1573px] font-roboto md:pb-0"
   >
     <TheNavbar />
     <Nuxt />
+    <!-- <LoginModal /> -->
     <TheFooter />
   </div>
 </template>
+
+<script>
+export default {};
+</script>
+
+<style></style>
