@@ -3,6 +3,7 @@
     <div
       class="sm:w-[564px] sm:h-[570px] w-full absolute bottom-0 sm:top-24 bg-white rounded-lg flex flex-col p-3 sm:p-20 z-40"
     >
+      <!-- Close Button -->
       <span
         class="absolute inline-block cursor-pointer top-5 right-5"
         @click="changeShow(false)"
@@ -34,7 +35,9 @@
         </span>
       </div>
 
-      <form @submit.prevent="submitForm">
+      <!-- Form -->
+      <form @submit.prevent="login">
+        <!-- Email -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -55,6 +58,8 @@
             You have entered an invalid email address
           </p>
         </div>
+
+        <!-- Password -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -110,6 +115,7 @@
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 export default {
+  name: "Login",
   data() {
     return {
       show: false,
@@ -133,6 +139,9 @@ export default {
       changeShow: "dialog/changeShow",
       changeComponent: "dialog/changeComponent",
       setUser: "auth/setUser",
+      changeStatus: "alert/changeStatus",
+      changeMessage: "alert/changeMessage",
+      changeColor: "alert/changeColor",
     }),
     emailValidate() {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
@@ -140,7 +149,7 @@ export default {
       }
       return (this.errors.email = true);
     },
-    submitForm() {
+    login() {
       if (this.errors.email || this.errors.pass) {
         alert("periksa lagi pengisi");
       } else {
@@ -155,8 +164,13 @@ export default {
 
         axios(config)
           .then((response) => {
-            // commit("setUser", response.data);
-            console.log(response.data);
+            this.changeStatus(true);
+            this.changeMessage(response.data.message);
+            this.changeColor("bg-blue-100  border-blue-300");
+            setTimeout(() => {
+              this.changeStatus(false);
+            }, 4000);
+
             this.setUser(response.data.content[0].is_user);
             localStorage.setItem("token", response.data.content[0].token);
             this.changeShow(false);
@@ -165,8 +179,6 @@ export default {
           .catch((error) => {
             this.loginStatus = false;
             this.errors.message = error.response.data.message;
-            // commit("setUser", {});
-            // commit("setToken", "");
           });
       }
     },

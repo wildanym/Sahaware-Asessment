@@ -2,13 +2,15 @@
   <div class="relative flex flex-col items-center pb-24 font-roboto md:pb-0">
     <TheNavbar />
     <Nuxt />
+    <Alert />
     <ModalDialog />
     <TheFooter />
   </div>
 </template>
 
 <script>
-export default {};
+import Alert from "~/components/Alert.vue";
+export default { components: { Alert } };
 </script>
 
 <style>

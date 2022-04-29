@@ -2,6 +2,7 @@
   <nav
     class="h-14 w-full px-4 md:px-[80px] md:py-[20px] md:h-[80px] shadow-navShadow flex justify-between md:justify-start items-center gap-12"
   >
+    <!-- Logo -->
     <div class="flex items-center divide-x-2 cursor-pointer" @click="home">
       <svg
         class="md:w-[249px] md:h-[24px] w-[166px] h-4"
@@ -156,6 +157,8 @@
         <line x1="142.436" y1="2" x2="142.436" y2="23" stroke="#848688" />
       </svg>
     </div>
+
+    <!-- Menu -->
     <div
       class="justify-start flex-1 order-1 hidden gap-12 text-sm font-normal md:flex"
     >
@@ -244,6 +247,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+  name: "Navbar",
   data() {
     return {
       show: false,

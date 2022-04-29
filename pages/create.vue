@@ -19,6 +19,7 @@
         <VueEditor
           class="w-full h-[330px] sm:h-96"
           placeholder="Write Your Story"
+          minlength="10"
           v-model="content"
           :editorToolbar="customToolbar"
         />
@@ -78,10 +79,10 @@
                   v-model="article.published"
                 />
                 <div
-                  class="w-10 h-4 rounded-full shadow-inner bg-Blue2/40"
+                  class="w-10 h-4 bg-gray-300 rounded-full shadow-inner peer-checked:bg-Blue2/40"
                 ></div>
                 <div
-                  class="absolute w-6 h-6 transition rounded-full shadow bg-Blue1 peer-checked:translate-x-full dot -left-1 -top-1"
+                  class="absolute w-6 h-6 transition bg-gray-400 rounded-full shadow peer-checked:bg-Blue1 peer-checked:translate-x-full dot -left-1 -top-1"
                 ></div>
               </div>
             </label>
@@ -103,7 +104,9 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
+import { create } from "domain";
 export default {
+  name: "create",
   data() {
     return {
       article: {
@@ -128,7 +131,18 @@ export default {
   methods: {
     ...mapActions({
       setToken: "auth/setToken",
+      changeStatus: "alert/changeStatus",
+      changeMessage: "alert/changeMessage",
+      changeColor: "alert/changeColor",
     }),
+    reset() {
+      this.article.title = "";
+      this.article.shortDescription = "";
+      this.content = "<p></p>";
+      this.article.selectedCategory = "";
+      this.article.published = false;
+      this.$refs.thumbnail.value = "";
+    },
     getArticleCategory() {
       const data = {
         url: `https://restify-sahaware-boilerplate.herokuapp.com/api/article-category`,
@@ -141,33 +155,58 @@ export default {
         .catch((error) => console.log(error.response));
     },
     publish() {
-      const file = this.$refs.thumbnail.files[0];
+      if (
+        this.article.title &&
+        this.article.shortDescription &&
+        this.content.length >= 10 &&
+        this.article.selectedCategory &&
+        this.article.published
+      ) {
+        const file = this.$refs.thumbnail.files[0];
 
-      const formData = new FormData();
-      formData.append("title", this.article.title);
-      formData.append("short_description", this.article.shortDescription);
-      formData.append("description", this.content);
-      formData.append("category_id", this.article.selectedCategory);
-      formData.append("is_visible", this.article.published);
-      formData.append("image", file);
+        const formData = new FormData();
+        formData.append("title", this.article.title);
+        formData.append("short_description", this.article.shortDescription);
+        formData.append("description", this.content);
+        formData.append("category_id", this.article.selectedCategory);
+        formData.append("is_visible", this.article.published);
+        formData.append("image", file);
 
-      const data = {
-        url: `https://restify-sahaware-boilerplate.herokuapp.com/api/article/create`,
-        method: "POST",
-        data: formData,
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      };
-      axios(data)
-        .then(() => {
-          alert("sukses mengirim");
-        })
-        .catch((error) => {
-          alert("gagal");
-          console.log(error);
-          console.log("tes");
-        });
+        const data = {
+          url: `https://restify-sahaware-boilerplate.herokuapp.com/api/article/create`,
+          method: "POST",
+          data: formData,
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        };
+        axios(data)
+          .then((response) => {
+            this.changeStatus(true);
+            this.changeMessage(response.data.message);
+            this.changeColor("bg-blue-100  border-blue-300");
+            setTimeout(() => {
+              this.changeStatus(false);
+            }, 4000);
+            this.reset();
+          })
+          .catch(() => {
+            this.changeStatus(true);
+            this.changeMessage("failed to Create Article ");
+            this.changeColor("bg-red-100  border-red-300");
+            setTimeout(() => {
+              this.changeStatus(false);
+            }, 4000);
+          });
+      } else {
+        this.changeStatus(true);
+        this.changeMessage("all data must be filled");
+        this.changeColor("bg-red-100  border-red-300");
+
+        setTimeout(() => {
+          this.changeStatus(false);
+        }, 4000);
+      }
     },
   },
   created() {

@@ -7,7 +7,7 @@
     </h1>
     <p class="text-lg font-light break-all">{{ content.short_description }}</p>
     <img :src="content.image" alt="thumbnail" class="sm:w-full" />
-    <p class="break-all">{{ content.description }}</p>
+    <div class="break-all description" v-html="content.description"></div>
   </div>
 </template>
 
@@ -36,4 +36,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="css">
+.description > h1 {
+  font-size: 2rem;
+}
+</style>

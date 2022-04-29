@@ -35,6 +35,7 @@
       </div>
 
       <form @submit.prevent="submitForm">
+        <!-- FullName -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -51,6 +52,7 @@
             required
           />
         </div>
+        <!-- Email -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -71,6 +73,7 @@
             You have entered an invalid email address
           </p>
         </div>
+        <!-- Password -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -107,6 +110,7 @@
             />
           </div>
         </div>
+        <!-- Phone number -->
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -132,7 +136,7 @@
         </div>
         <div
           v-if="!createStatus"
-          class="absolute p-2 text-sm bg-red-100 border rounded-sm bottom-[4.5rem] border-secondaryRed text-secondaryRed"
+          class="absolute p-2 text-sm bg-red-100 border rounded-sm sm:bottom-24 bottom-[4.5rem] border-secondaryRed text-secondaryRed"
         >
           {{ errors.message }}
         </div>
@@ -150,6 +154,7 @@
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 export default {
+  name: "createAccount",
   data() {
     return {
       show: false,
@@ -175,6 +180,9 @@ export default {
     ...mapActions({
       changeShow: "dialog/changeShow",
       changeComponent: "dialog/changeComponent",
+      changeStatus: "alert/changeStatus",
+      changeMessage: "alert/changeMessage",
+      changeColor: "alert/changeColor",
     }),
     emailValidate() {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
@@ -187,6 +195,12 @@ export default {
         return (this.errors.phone = false);
       }
       return (this.errors.phone = true);
+    },
+    reset() {
+      this.name = "";
+      this.email = "";
+      this.password = "";
+      this.phone = "";
     },
     submitForm() {
       const config = {
@@ -202,17 +216,19 @@ export default {
 
       axios(config)
         .then((response) => {
-          // commit("setUser", response.data);
-          console.log(response.data);
-          alert(response.data.message);
-          this.changeComponent("login");
+          this.changeStatus(true);
+          this.changeMessage(response.data.message);
+          this.changeColor("bg-blue-100  border-blue-300");
+
+          setTimeout(() => {
+            this.changeStatus(false);
+            this.changeComponent("login");
+          }, 5000);
+          this.reset();
         })
         .catch((error) => {
           this.createStatus = false;
           this.errors.message = error.response.data.message;
-          console.error(error.response.data);
-          // commit("setUser", {});
-          // commit("setToken", "");
         });
     },
   },

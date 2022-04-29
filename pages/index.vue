@@ -36,7 +36,7 @@ export default {
         .catch((error) => console.log(error));
     },
   },
-  created() {
+  mounted() {
     this.getArticle();
   },
   components: { CardComponent },
