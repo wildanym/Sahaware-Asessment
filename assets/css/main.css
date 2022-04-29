@@ -9,5 +9,5 @@
 }
 
 .btn {
-  @apply py-3 px-4 text-white rounded-md cursor-pointer;
+  @apply py-3 px-4 text-white rounded-md cursor-pointer active:py-[11px] active:px-[15px];
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 export const state = () => ({
   token: "",
-  user: true,
+  user: "",
 });
 
 export const mutations = {
@@ -14,10 +14,8 @@ export const mutations = {
 };
 
 export const actions = {
-  setToken: ({ commit, dispatch }, payload) => {
+  setToken: ({ commit }, payload) => {
     commit("setToken", payload);
-
-    dispatch("checkToken", payload);
   },
 
   checkToken: ({ commit }, payload) => {

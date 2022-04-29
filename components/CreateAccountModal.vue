@@ -132,12 +132,12 @@
         </div>
         <div
           v-if="!createStatus"
-          class="absolute p-2 text-sm bg-red-100 border rounded-sm bottom-10 border-secondaryRed text-secondaryRed"
+          class="absolute p-2 text-sm bg-red-100 border rounded-sm bottom-[4.5rem] border-secondaryRed text-secondaryRed"
         >
           {{ errors.message }}
         </div>
         <input
-          class="w-full font-normal mt-7 sm:text-xl sm:w-auto btn bg-secondaryRed"
+          class="w-full font-normal mt-[3.75rem] sm:text-xl sm:w-auto btn bg-secondaryRed"
           type="submit"
           value="Create Account"
         />
@@ -203,13 +203,14 @@ export default {
       axios(config)
         .then((response) => {
           // commit("setUser", response.data);
-          console.log("sukses");
-          console.log(response.status);
+          console.log(response.data);
+          alert(response.data.message);
+          this.changeComponent("login");
         })
         .catch((error) => {
-          // this.createStatus = false;
-          // this.errors.message = error.response.data.message;
-          console.error(error);
+          this.createStatus = false;
+          this.errors.message = error.response.data.message;
+          console.error(error.response.data);
           // commit("setUser", {});
           // commit("setToken", "");
         });

@@ -33,6 +33,9 @@ export default {
   created() {
     this.getArticle();
   },
+  updated() {
+    this.getArticle();
+  },
   components: { CardComponent },
 };
 </script>

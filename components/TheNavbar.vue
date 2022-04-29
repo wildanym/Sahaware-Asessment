@@ -215,6 +215,8 @@
     >
       Login
     </div>
+
+    <!-- slider menu -->
     <Transition name="fade" mode="out-in">
       <div
         v-if="show"
