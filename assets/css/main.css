@@ -9,5 +9,5 @@
 }
 
 .btn {
-  @apply py-3 px-4 text-white rounded-md;
+  @apply py-3 px-4 text-white rounded-md cursor-pointer;
 }

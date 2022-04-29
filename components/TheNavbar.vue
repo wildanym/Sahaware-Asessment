@@ -2,7 +2,7 @@
   <nav
     class="h-14 w-full px-4 md:px-[80px] md:py-[20px] md:h-[80px] shadow-navShadow flex justify-between md:justify-start items-center gap-12"
   >
-    <div class="flex items-center divide-x-2">
+    <div class="flex items-center divide-x-2 cursor-pointer" @click="home">
       <svg
         class="md:w-[249px] md:h-[24px] w-[166px] h-4"
         viewBox="0 0 249 24"
@@ -161,7 +161,13 @@
     >
       <nuxt-link to="/" exact>Home</nuxt-link>
       <nuxt-link to="/article" exact>Article</nuxt-link>
-      <nuxt-link to="/create" exact>Create</nuxt-link>
+      <nuxt-link v-if="user" to="/create" exact>Create</nuxt-link>
+      <span
+        class="cursor-pointer"
+        v-else
+        @click="changeShow(true), changeComponent('Login')"
+        >Create</span
+      >
     </div>
     <span
       v-if="show == false"
@@ -196,6 +202,14 @@
       </svg>
     </span>
     <div
+      v-if="user"
+      class="order-2 hidden text-sm cursor-pointer grow-0 md:inline-block text-Blue2 md:px-6 md:py-3 md:w-20"
+      @click="logout()"
+    >
+      Logout
+    </div>
+    <div
+      v-else
       class="order-2 hidden text-sm cursor-pointer grow-0 md:inline-block text-Blue2 md:px-6 md:py-3 md:w-20"
       @click="changeShow(true), changeComponent('Login')"
     >
@@ -211,7 +225,11 @@
           >Article</nuxt-link
         >
         <nuxt-link to="/create" exact class="cursor-pointer">Create</nuxt-link>
+        <span v-if="user" class="cursor-pointer text-Blue1" @click="logout"
+          >Logout</span
+        >
         <span
+          v-else
           class="cursor-pointer text-Blue1"
           @click="changeShow(true), changeComponent('Login')"
           >Login</span
@@ -233,16 +251,28 @@ export default {
     ...mapGetters({
       showStatus: "dialog/show",
       component: "dialog/component",
+      user: "auth/user",
     }),
   },
   methods: {
     ...mapActions({
       changeShow: "dialog/changeShow",
       changeComponent: "dialog/changeComponent",
+      setUser: "auth/setUser",
     }),
-    coba() {
-      console.log(this.showStatus);
+    logout() {
+      localStorage.removeItem("token");
+      this.setUser(false);
+      this.$router.push({ path: "/" });
     },
+    home() {
+      this.$router.push({ path: "/" });
+    },
+  },
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.setUser(true);
+    }
   },
 };
 </script>

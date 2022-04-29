@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex justify-center w-full h-screen">
     <div
-      class="sm:w-[564px] sm:h-[570px] w-full absolute bottom-0 sm:top-24 bg-white rounded-lg flex flex-col p-3 sm:p-20 z-40"
+      class="sm:w-[564px] sm:h-[700px] w-full absolute bottom-0 sm:top-24 bg-white rounded-lg flex flex-col p-3 sm:px-20 sm:py-14 z-40"
     >
       <span
         class="absolute inline-block cursor-pointer top-5 right-5"
@@ -22,19 +22,35 @@
       </span>
       <div class="mb-6">
         <h2 class="md:my-2 text-xl sm:text-[34px] sm:leading-10 font-bold">
-          Login
+          Create Account
         </h2>
         <span class="block mt-8 sm:mt-0"
-          >Don’t have an account?
+          >Have an account?
           <span
             class="cursor-pointer text-secondaryRed"
-            @click="changeComponent('CreateAccount')"
-            >Create Account</span
+            @click="changeComponent('Login')"
+            >Login</span
           >
         </span>
       </div>
 
       <form @submit.prevent="submitForm">
+        <div class="relative my-6">
+          <label
+            class="block mb-2 text-base font-normal text-gray-700"
+            for="email"
+            >Fullname</label
+          >
+          <input
+            class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="text"
+            name="fullname"
+            id="fullname"
+            placeholder="Entry your fullname"
+            v-model="name"
+            required
+          />
+        </div>
         <div class="relative my-6">
           <label
             class="block mb-2 text-base font-normal text-gray-700"
@@ -65,6 +81,7 @@
             class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             :type="show ? 'text' : 'password'"
             name="password"
+            minlength="8"
             id="password"
             placeholder="Entry your password"
             v-model="password"
@@ -89,17 +106,40 @@
               :class="{ hidden: !show, block: show }"
             />
           </div>
-          <div
-            v-if="!loginStatus"
-            class="absolute p-2 text-sm bg-red-100 border rounded-sm -bottom-14 border-secondaryRed text-secondaryRed"
+        </div>
+        <div class="relative my-6">
+          <label
+            class="block mb-2 text-base font-normal text-gray-700"
+            for="email"
+            >Phone Number</label
           >
-            {{ errors.message }}
-          </div>
+          <input
+            class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="phone"
+            name="phone"
+            id="phone"
+            placeholder="Entry your phone number"
+            v-model="phone"
+            required
+            @change="phoneValidate"
+          />
+          <p
+            v-if="errors.phone"
+            class="absolute mt-1 text-sm -bottom-6 text-secondaryRed"
+          >
+            You have entered an invalid phone number
+          </p>
+        </div>
+        <div
+          v-if="!createStatus"
+          class="absolute p-2 text-sm bg-red-100 border rounded-sm bottom-10 border-secondaryRed text-secondaryRed"
+        >
+          {{ errors.message }}
         </div>
         <input
-          class="w-full mt-12 sm:w-auto btn bg-secondaryRed"
+          class="w-full font-normal mt-7 sm:text-xl sm:w-auto btn bg-secondaryRed"
           type="submit"
-          value="Log in"
+          value="Create Account"
         />
       </form>
     </div>
@@ -113,14 +153,17 @@ export default {
   data() {
     return {
       show: false,
+      name: "",
       email: "",
       password: "",
+      phone: "",
       errors: {
         email: false,
         pass: false,
+        phone: false,
         message: "",
       },
-      loginStatus: true,
+      createStatus: true,
     };
   },
   computed: {
@@ -132,7 +175,6 @@ export default {
     ...mapActions({
       changeShow: "dialog/changeShow",
       changeComponent: "dialog/changeComponent",
-      setUser: "auth/setUser",
     }),
     emailValidate() {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
@@ -140,35 +182,37 @@ export default {
       }
       return (this.errors.email = true);
     },
-    submitForm() {
-      if (this.errors.email || this.errors.pass) {
-        alert("periksa lagi pengisi");
-      } else {
-        const config = {
-          method: "post",
-          url: "https://restify-sahaware-boilerplate.herokuapp.com/api/auth/login",
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        };
-
-        axios(config)
-          .then((response) => {
-            // commit("setUser", response.data);
-            console.log(response.data);
-            this.setUser(response.data.content[0].is_user);
-            localStorage.setItem("token", response.data.content[0].token);
-            this.changeShow(false);
-            this.loginStatus = true;
-          })
-          .catch((error) => {
-            this.loginStatus = false;
-            this.errors.message = error.response.data.message;
-            // commit("setUser", {});
-            // commit("setToken", "");
-          });
+    phoneValidate() {
+      if (/^08[0-9]*$/.test(this.phone)) {
+        return (this.errors.phone = false);
       }
+      return (this.errors.phone = true);
+    },
+    submitForm() {
+      const config = {
+        method: "post",
+        url: "https://restify-sahaware-boilerplate.herokuapp.com/api/auth/register",
+        data: {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          phone: this.phone,
+        },
+      };
+
+      axios(config)
+        .then((response) => {
+          // commit("setUser", response.data);
+          console.log("sukses");
+          console.log(response.status);
+        })
+        .catch((error) => {
+          // this.createStatus = false;
+          // this.errors.message = error.response.data.message;
+          console.error(error);
+          // commit("setUser", {});
+          // commit("setToken", "");
+        });
     },
   },
 };
