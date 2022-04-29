@@ -1,25 +1,19 @@
 <template>
-  <div class="w-full sm:p-20">
-    <header
-      class="h-[36.5rem] w-full bg-[url('/hero.jpg')] bg-cover bg-center"
-    ></header>
-    <!-- Articles wrapper -->
-    <section class="flex flex-col items-center w-full gap-8 px-4 mt-8 md:mt-20">
-      <h1 class="text-4xl font-bold sm:text-5xl md:mb-12">Article</h1>
-      <CardComponent :articles="articles" class="flex-col md:flex-row" />
-    </section>
-    <!-- End Articles Wrapper -->
+  <div
+    class="flex justify-center w-full min-h-screen p-4 md:justify-center sm:px-20 sm:py-16"
+  >
+    <CardComponent :articles="articles" class="flex-wrap" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import CardComponent from "../components/CardComponent.vue";
+import CardComponent from "../../components/CardComponent.vue";
 export default {
   name: "IndexPage",
   data() {
     return {
-      size: 3,
+      size: 9,
       articles: [],
     };
   },
@@ -36,7 +30,10 @@ export default {
         .catch((error) => console.log(error));
     },
   },
-  mounted() {
+  created() {
+    this.getArticle();
+  },
+  updated() {
     this.getArticle();
   },
   components: { CardComponent },
