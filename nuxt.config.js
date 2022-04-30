@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "sahaware-assesment",
+    title: "sahaware-assessment",
     htmlAttrs: {
       lang: "en",
     },
