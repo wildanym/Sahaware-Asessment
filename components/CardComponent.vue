@@ -7,14 +7,14 @@
     <div
       v-for="(item, index) of articles"
       :key="`${item} - ${index}`"
-      class="sm:w-[328px] w-full"
+      class="sm:w-[302px] max-w-[328px] w-full"
     >
       <nuxt-link :to="'/article/' + item.id">
         <div class="my-4 place-self-center sm:mb-4">
           <img
             :src="item.image"
             alt="thumbnail"
-            class="w-full object-cover h-[205px]"
+            class="w-full object-cover object-center h-[205px]"
           />
         </div>
         <div class="flex w-full text-justify">

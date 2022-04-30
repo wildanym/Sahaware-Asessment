@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full sm:p-20">
+  <div class="w-full min-h-screen sm:p-20">
     <header
       class="h-[36.5rem] w-full bg-[url('/hero.jpg')] bg-cover bg-center"
     ></header>
