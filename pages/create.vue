@@ -158,7 +158,7 @@ export default {
     publish() {
       if (
         this.article.title.length > 5 &&
-        this.article.shortDescription.length > 10 &&
+        this.article.shortDescription.length >= 10 &&
         this.content.length > 0 &&
         this.article.selectedCategory &&
         this.article.published
