@@ -37,6 +37,7 @@
         id="title"
         placeholder="Enter your Article Short Description"
         class="mb-6 w-full min-h-[132px] px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none sm:mb-8 focus:outline-none focus:shadow-outline"
+        minlength="10"
         v-model="article.shortDescription"
       />
       <!-- thumbnail -->
@@ -156,9 +157,9 @@ export default {
     },
     publish() {
       if (
-        this.article.title &&
-        this.article.shortDescription &&
-        this.content.length >= 10 &&
+        this.article.title.length > 5 &&
+        this.article.shortDescription.length > 10 &&
+        this.content.length > 0 &&
         this.article.selectedCategory &&
         this.article.published
       ) {
@@ -199,8 +200,20 @@ export default {
             }, 4000);
           });
       } else {
+        if (
+          this.article.shortDescription.length > 0 &&
+          this.article.shortDescription.length < 10
+        ) {
+          this.changeMessage("Short description must be at least 10 char");
+        } else if (
+          this.article.title.length > 0 &&
+          this.article.title.length < 5
+        ) {
+          this.changeMessage("title must be at least 5 char");
+        } else {
+          this.changeMessage("all data must be filled");
+        }
         this.changeStatus(true);
-        this.changeMessage("all data must be filled");
         this.changeColor("bg-red-100  border-red-300");
 
         setTimeout(() => {
