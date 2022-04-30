@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative max-w-[1440px] flex flex-col items-center pb-24 font-roboto md:pb-0"
+    class="relative max-w-[1440px] flex flex-col justify-start items-center pb-24 font-roboto md:pb-0"
   >
     <TheNavbar />
     <Nuxt />

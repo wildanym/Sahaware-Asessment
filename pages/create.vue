@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex flex-col w-full md:max-w-[954px] min-h-screen gap-12 px-4 sm:items-center md:flex-row"
+    class="flex flex-col w-full md:max-w-[954px] min-h-screen gap-12 px-4 sm:items-center md:items-start sm:mt-20 md:flex-row"
   >
     <!-- create new article -->
-    <div class="mt-8 sm:w-3/5 sm:mt-4 md:mt-0">
+    <div class="mt-8 sm:w-3/5 sm:justify-self-start sm:mt-4 md:mt-0">
       <h1 class="mb-8 text-2xl font-medium">Create New Article</h1>
       <!-- title -->
       <label class="font-normal sm:text-base" for="title">Title</label>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- publication detail -->
-    <div class="mt-12 sm:w-2/5 sm:mt-4 md:mt-2">
+    <div class="mt-12 sm:w-2/5 sm:justify-self-start sm:mt-4 md:mt-2">
       <h1 class="mb-8 text-2xl font-medium">Publication Detail</h1>
       <!-- short description -->
       <label class="font-normal sm:text-base" for="title"
