@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex justify-center w-full min-h-screen p-4 md:justify-center sm:px-20 sm:py-16"
-  >
+  <div class="flex justify-center w-full min-h-screen p-4 sm:px-20 sm:py-16">
     <CardComponent :articles="articles" class="flex-wrap" />
   </div>
 </template>

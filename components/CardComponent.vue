@@ -1,20 +1,22 @@
 <template>
   <div
-    class="flex flex-col flex-wrap items-center w-full gap-6 cursor-pointer md:items-start md:justify-center md:flex-row"
+    class="flex flex-col flex-wrap items-center w-full gap-6 cursor-pointer sm:items-start sm:justify-center sm:flex-row"
   >
     <!-- Cards -->
 
     <div
       v-for="(item, index) of articles"
       :key="`${item} - ${index}`"
-      class="sm:w-[328px]"
+      class="sm:w-[328px] w-full"
     >
       <nuxt-link :to="'/article/' + item.id">
-        <img
-          :src="item.image"
-          alt="thumbnail"
-          class="w-[328px] object-cover h-[205px] my-4 sm:mb-4"
-        />
+        <div class="my-4 place-self-center sm:mb-4">
+          <img
+            :src="item.image"
+            alt="thumbnail"
+            class="w-full object-cover h-[205px]"
+          />
+        </div>
         <div class="flex w-full text-justify">
           <h2 class="mb-4 text-2xl font-medium">{{ item.title }}</h2>
         </div>
