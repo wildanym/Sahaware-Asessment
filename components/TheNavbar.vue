@@ -229,7 +229,13 @@
         <nuxt-link to="/article" exact class="cursor-pointer"
           >Article</nuxt-link
         >
-        <nuxt-link to="/create" exact class="cursor-pointer">Create</nuxt-link>
+        <nuxt-link v-if="user" to="/create" exact>Create</nuxt-link>
+        <span
+          class="cursor-pointer"
+          v-else
+          @click="changeShow(true), changeComponent('Login')"
+          >Create</span
+        >
         <span v-if="user" class="cursor-pointer text-Blue1" @click="logout"
           >Logout</span
         >
